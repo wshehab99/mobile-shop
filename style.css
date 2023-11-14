@@ -98,4 +98,15 @@ button:focus {
   padding: 0 1rem;
 }
 
+#special-price .grid .grid-item {
+  margin-right: 1.2rem;
+  margin-top: 1.5rem;
+}
+#special-price .grid .item .product img {
+  transition: transform 0.5s ease;
+}
+#special-price .grid .item .product img:hover {
+  transform: scale(1.1);
+}
+
 /*# sourceMappingURL=style.css.map */
