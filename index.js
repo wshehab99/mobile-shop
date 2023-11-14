@@ -4,7 +4,7 @@ $(document).ready(function () {
         dots: true,
         items: 1
     });
-    //Top Sale Carousal
+    // top sale owl carousel
     $("#top-sale .owl-carousel").owlCarousel({
         loop: true,
         nav: true,
@@ -21,7 +21,6 @@ $(document).ready(function () {
             }
         }
     });
-
     //isotope filter
     var $grid = $(".grid").isotope({
         itemSelector: '.grid-item',
@@ -31,5 +30,36 @@ $(document).ready(function () {
     $(".button-group").on('click', 'button', function () {
         var filterValue = $(this).attr("data-filter");
         $grid.isotope({ filter: filterValue });
+    });
+    //New Phones Carousal
+    $("#new-phones .owl-carousel").owlCarousel({
+        loop: true,
+        nav: false,
+        dots: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 3
+            },
+            1000: {
+                items: 5
+            }
+        }
+    });
+    // Blogs Carousal
+    $("#blogs .owl-carousel").owlCarousel({
+        loop: true,
+        nav: false,
+        dots: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 3
+            },
+        }
     });
 });
