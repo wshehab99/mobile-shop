@@ -62,4 +62,22 @@ $(document).ready(function () {
             },
         }
     });
+    //quantity value
+    $qty_up = $('.qty .qty-up');
+    $qty_down = $('.qty .qty-down');
+    $qty_input = $('.qty .qty-input');
+    $qty_up.click(function (event) {
+        if ($qty_input.val() < 10) {
+            $qty_input.val(function (i, old_value) {
+                return ++old_value;
+            });
+        };
+    });
+    $qty_down.click(function (event) {
+        if ($qty_input.val() > 1) {
+            $qty_input.val(function (i, old_value) {
+                return --old_value;
+            });
+        }
+    });
 });
