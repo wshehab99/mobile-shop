@@ -4,24 +4,16 @@ namespace database;
 
 class Product
 {
-    public  $db;
-    public function __construct(DBController $db)
+    public DBController $db;
+    public  DBGrammar $dbGrammar;
+    public function __construct(DBController $db, DBGrammar $dbGrammar)
     {
-//    if(!isset($this->db->connection))return null;
     $this->db=$db;
+    $this->dbGrammar=$dbGrammar;
     }
-    public  function getProducts()
+    public  function getProducts(): array
     {
-       return $this->getData("product");
+       return $this->dbGrammar->getData("product");
     }
-    protected function getData($table)
-    {
-       $result= $this->db->connection->query("SELECT * FROM $table");
-       $resultArray=[];
-        while ($item= mysqli_fetch_array($result))
-       {
-           $resultArray[]=$item;
-       }
-       return $resultArray;
-    }
+
 }

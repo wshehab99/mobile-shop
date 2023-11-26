@@ -5,10 +5,10 @@ namespace database;
 class DBController
 {
     //connection properties
-    protected  $host="localhost";
-    protected $user="root";
-    protected $password="";
-    protected $database="shop";
+    protected string $host="localhost";
+    protected string $user="root";
+    protected string $password="";
+    protected string $database="shop";
     public $connection=null;
     //constructor
     public function __construct()
