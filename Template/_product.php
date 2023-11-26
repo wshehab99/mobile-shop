@@ -1,3 +1,7 @@
+<?php
+foreach ($product->getProducts() as $prod) {
+    if($prod['item_id']==$_GET['item_id']){
+?>
 <!---Start Main Section-->
 <main id="main-site">
     <!---Start Product-->
@@ -5,7 +9,7 @@
         <div class="container">
             <div class="row">
                 <div class="clo-sm-6 col">
-                    <img src="./assets/products/1.png" alt="product" class="img-fluid">
+                    <img src="<?php echo $prod['item_image'];?>" alt="product" class="img-fluid">
                     <form class="form-row">
                         <div class="row">
                             <div class="col">
@@ -18,8 +22,8 @@
                     </form>
                 </div>
                 <div class="clo-sm-6 col py-5">
-                    <h5 class="font-baloo font-size-20">Samsung Galaxy 10</h5>
-                    <small>by Samsung</small>
+                    <h5 class="font-baloo font-size-20"><?php echo $prod['item_name'];?></h5>
+                    <small>by <?php echo $prod['item_brand'];?></small>
                     <div class="d-flex">
                         <div class="rating text-warning font-size-12">
                             <span><i class="fas fa-star"></i></span>
@@ -37,19 +41,19 @@
                     <table class="my-3">
                         <tr font-rale font-size-14>
                             <td>M.R.P</td>
-                            <td><strike>$162</strike></td>
+                            <td><strike><?php echo $prod['item_price'];?></strike></td>
                         </tr>
                         <tr font-rale font-size-14>
                             <td>Deal Price</td>
                             <td>
-                                <span class="text-danger font-size-16">$152</span>
+                                <span class="text-danger font-size-16">$<?php echo $prod['item_price'];?></span>
                                 <small class="font-size-12 text-dark">&nbsp;&nbsp;Inclusive of all taxes</small>
                             </td>
                         </tr>
                         <tr font-rale font-size-14>
                             <td>You Save</td>
                             <td>
-                                <span class="text-danger font-size-16">$10</span>
+                                <span class="text-danger font-size-16">$0</span>
 
                             </td>
                         </tr>
@@ -177,3 +181,4 @@
         </div>
     </section>
     <!---Close Product-->
+<?php }}?>

@@ -1,5 +1,6 @@
 <?php
 $products=$product->getProducts();
+shuffle($products);
 ?>
 <!---Start Top Sale-->
 <section id="top-sale">
@@ -13,7 +14,7 @@ $products=$product->getProducts();
             <?php foreach ($products as $item) {?>
             <div class="item py-2">
                 <div class="product font-rale">
-                    <a href="#">
+                    <a href="<?php echo "product.php?item_id=" . $item['item_id'];?>">
                         <img src=<?php echo $item['item_image']?> alt="Product1" >
                     </a>
                     <div class="text-center">

@@ -3,6 +3,7 @@ $brands=array_unique(array_map(function ($prod){
     return $prod['item_brand'];
 },$products));
 sort($brands);
+shuffle($products);
 ?>
 <!---Start Special Price-->
 <section id="special-price">
@@ -21,7 +22,7 @@ sort($brands);
             <div class="grid-item border <?php echo $item['item_brand'];?>">
                 <div class="item py-2" style="width:  200px">
                     <div class="product font-rale">
-                        <a href="#">
+                        <a href="<?php echo "product.php?item_id=" . $item['item_id'];?>">
                             <img src="<?php echo $item['item_image'];?>" alt="Product1" class="img-fluid">
                         </a>
 
