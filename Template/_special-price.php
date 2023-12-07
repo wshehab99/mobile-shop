@@ -5,6 +5,14 @@ $brands=array_unique(array_map(function ($prod){
 sort($brands);
 shuffle($products);
 ?>
+<?php
+if($_SERVER['REQUEST_METHOD']=="POST"){
+    if(isset($_POST['special_price_submit'])){
+        //call addToCart methode
+        $cart->addToCart($_POST['user_id'],$_POST['item_id']);
+    }
+}
+?>
 <!---Start Special Price-->
 <section id="special-price">
     <div class="container">
@@ -13,12 +21,13 @@ shuffle($products);
         <div id="filter" class="button-group text-right font-baloo font-size-16">
             <button class="btn is-checkd" data-filter="*">All Brands</button>
             <?php
+
             array_map(function($brand){ ?>
             <button class="btn" data-filter="<?php echo ".".$brand;?>"><?php echo $brand?></button>
             <?php },$brands);?>
         </div>
         <div class="grid">
-            <?php array_map(function ($item){?>
+            <?php array_map(function ($item) use($cart){?>
             <div class="grid-item border <?php echo $item['item_brand'];?>">
                 <div class="item py-2" style="width:  200px">
                     <div class="product font-rale">
@@ -39,9 +48,24 @@ shuffle($products);
                             <div class="price py-2">
                                 <span>$<?php echo $item['item_price'];?></span>
                             </div>
-                            <button type="submit" class="btn btn-warning font-size-12">
+                            <form method="post">
+                                <input type="hidden" name="item_id" value="<?php echo $item['item_id'];?>">
+                                <input type="hidden" name="user_id" value="<?php echo 1;?>">
+                                <?php
+                                if(in_array($item['item_id'],$cart->getCartId()))
+                                {
+                                    echo '<button type="submit" disabled class="btn-success font-size-12">
+                                Already in cart
+                            </button>';
+                                }else
+                                {
+                                    echo '<button type="submit" name="new_phones_submit" class="btn btn-warning font-size-12">
                                 Add to cart
-                            </button>
+                            </button>';
+                                }
+
+                                ?>
+                            </form>
                         </div>
 
                     </div>

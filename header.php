@@ -78,7 +78,7 @@
                                 </i>
                             </span>
                         <span class="px-3 py-2 rounded-pill text-dark bg-light">
-                                0
+                                <?php echo $cart->getNumberOfItemsInCart(); ?>
                             </span>
                     </a>
                 </form>

@@ -63,23 +63,48 @@ $(document).ready(function () {
         }
     });
     //quantity value
-    $qty_up = $('.qty .qty-up');
+     $qty_up = $('.qty .qty-up');
     $qty_down = $('.qty .qty-down');
+    let $deal_price = $("#deal-price");
+
     // $qty_input = $('.qty .qty-input');
     $qty_up.click(function (event) {
         let $qty_input = $(`.qty-input[data-id='${$(this).data("id")}']`);
+        let $price = $(`.product-price[data-id='${$(this).data("id")}']`);
+        $.ajax({url:"template/ajax.php",type:"post",data:{itemid:$(this).data("id")},success:function (result){
+                let obj=JSON.parse(result);
+                let item_price=obj[0]['item_price'];
         if ($qty_input.val() < 10) {
             $qty_input.val(function (i, old_value) {
                 return ++old_value;
             });
-        };
-    });
+            // increase price of the product
+            $price.text(parseFloat(item_price * $qty_input.val()).toFixed(2));
+
+            // set subtotal price
+            let subtotal = parseFloat($deal_price.text()) + parseFloat(item_price);
+            $deal_price.text(subtotal.toFixed(2));
+        }},});
+     });
+
     $qty_down.click(function (event) {
+
         let $qty_input = $(`.qty-input[data-id='${$(this).data("id")}']`);
-        if ($qty_input.val() > 1) {
-            $qty_input.val(function (i, old_value) {
-                return --old_value;
-            });
-        }
-    });
+        let $price = $(`.product-price[data-id='${$(this).data("id")}']`);
+        $.ajax({url:"template/ajax.php",type:"post",data:{itemid:$(this).data("id")},success:function (result){
+            let obj=JSON.parse(result);
+            let item_price=obj[0]['item_price'];
+                if ($qty_input.val() > 1) {
+                    $qty_input.val(function (i, old_value) {
+                        return --old_value;
+                    });
+                    // increase price of the product
+                    $price.text(parseFloat(item_price * $qty_input.val()).toFixed(2));
+
+                    // set subtotal price
+                    let subtotal = parseFloat($deal_price.text()) - parseFloat(item_price);
+                    $deal_price.text(subtotal.toFixed(2));
+            }},});
+
+        },);
 });

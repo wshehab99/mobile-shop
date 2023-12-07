@@ -2,6 +2,14 @@
 $products=$product->getProducts();
 shuffle($products);
 ?>
+<?php
+if($_SERVER['REQUEST_METHOD']=="POST"){
+    if(isset($_POST['top_sale_submit'])){
+        //call addToCart methode
+        $cart->addToCart($_POST['user_id'],$_POST['item_id']);
+    }
+}
+?>
 <!---Start Top Sale-->
 <section id="top-sale">
     <div class="container py-5">
@@ -30,9 +38,25 @@ shuffle($products);
                         <div class="price py-2">
                             <span>$<?php echo $item['item_price']?></span>
                         </div>
-                        <button type="submit" class="btn btn-warning font-size-12">
-                            Add to cart
-                        </button>
+                        <form method="post">
+                            <input type="hidden" name="item_id" value="<?php echo $item['item_id'];?>">
+                            <input type="hidden" name="user_id" value="<?php echo 1;?>">
+                            <?php
+                            if(in_array($item['item_id'],$cart->getCartId()))
+                            {
+                                echo '<button type="submit" disabled class="btn-success font-size-12">
+                                Already in cart
+                            </button>';
+                            }
+                            else
+                            {
+                                echo '<button type="submit" name="new_phones_submit" class="btn btn-warning font-size-12">
+                                Add to cart
+                            </button>';
+                            }
+
+                            ?>
+                        </form>
                     </div>
                 </div>
             </div>
