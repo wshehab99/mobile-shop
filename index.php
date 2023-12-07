@@ -20,3 +20,4 @@ include ("Template/_blogs.php");
 // include footer
 include ("footer.php");
 ?>
+
