@@ -2,6 +2,8 @@
 
 namespace database;
 
+use database\Grammar\DBGrammar;
+
 class Product
 {
     public DBController $db;
@@ -13,7 +15,14 @@ class Product
     }
     public  function getProducts(): array
     {
-       return $this->dbGrammar->getData("product");
+
+        $result= $this->db->connection->query($this->dbGrammar->getData('product'));
+        $resultArray=[];
+        while ($item= mysqli_fetch_array($result))
+        {
+            $resultArray[]=$item;
+        }
+        return $resultArray;
     }
 
 }

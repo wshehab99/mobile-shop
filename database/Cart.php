@@ -1,8 +1,7 @@
 <?php
 
 namespace database;
-use database\DBController;
-use database\DBGrammar;
+use database\Grammar\DBGrammar;
 
 class Cart
 {
@@ -34,7 +33,13 @@ class Cart
     }
     public function  getCart(): array
     {
-        return $this->dbGrammar->getData("cart") ;
+        $result= $this->db->connection->query($this->dbGrammar->getData('cart'));
+        $resultArray=[];
+        while ($item= mysqli_fetch_array($result))
+        {
+            $resultArray[]=$item;
+        }
+        return $resultArray;
     }
     public  function  getSubtotal(){
         $sum=0;

@@ -4,8 +4,18 @@ if($_SERVER['REQUEST_METHOD']=="POST")
     if(isset($_POST['delete_from_wishlist_submit']))
     {
         $deletedProduct=$wishlist->deleteProductFromWishList($_POST['item_id']);
+
     }
+    elseif (isset($_POST['add_to_cart_submit']))
+    {
+        $cart->addToCart($_POST['user_id'],$_POST['item_id']);
+        $deletedProduct=$wishlist->deleteProductFromWishList($_POST['item_id']);
+
+    }
+
+
 }
+
 ?>
 <!---Start Main Section-->
 <main id="main-site">
@@ -43,24 +53,30 @@ if($_SERVER['REQUEST_METHOD']=="POST")
                                     <div class="d-flex font-rale w-100">
                                         <form method="post">
                                             <input type="hidden" name="item_id" value="<?php echo $item['item_id']; ?>">
+                                            <input type="hidden" name="user_id" value="<?php echo 1; ?>">
+
                                             <button type="submit" name="delete_from_wishlist_submit" class="btn font-baloo font-size-14 px-3 text-danger border-right">
                                                 Delete from wishlist
                                             </button>
-                                        </form>
-                                        <?php
-                                        if(in_array($item['item_id'],$cart->getCartId()))
-                                        {
-                                            echo '<button type="submit" disabled name="add_to_wishlist_submit" class="btn font-baloo font-size-14 text-danger">
+
+
+                                            <?php
+                                            if(in_array($item['item_id'],$cart->getCartId()))
+                                            {
+                                                echo '<button type="submit" disabled name="add_to_cart_submit" class="btn font-baloo font-size-14 text-danger">
                                                                 Already in cart
                                                                 </button>';
-                                        }else
-                                        {
-                                            echo '<button type="submit" name="add_to_wishlist_submit" class="btn font-baloo font-size-14 text-danger">
+                                            }
+                                            else
+                                            {
+                                                echo '<button type="submit" name="add_to_cart_submit" class="btn font-baloo font-size-14 text-danger">
                                                                 Add to cart
                                                                 </button>';
-                                        }
+                                            }
 
-                                        ?>
+                                            ?>
+                                        </form>
+
                                         </div>
                                 </div>
                                 <!---close item quantity-->
