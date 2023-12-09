@@ -24,21 +24,15 @@ class DBGrammar
     {
         $columns = implode(", ",array_keys($params));
         $values=implode(", ",array_values($params));
-        return "INSERT INTO $table ($columns) VALUES($values)";
+        return "INSERT INTO $table ( $columns ) VALUES( $values )";
     }
-    public function getFilteredData($table ,string  $filter): array
+    public function getFilteredData($table ,string  $filter): string
     {
-        $result= $this->db->connection->query("SELECT * FROM $table WHERE $filter");
-        $resultArray=[];
-        while ($item= mysqli_fetch_array($result))
-        {
-            $resultArray[]=$item;
-        }
-        return $resultArray;
+        return "SELECT * FROM $table WHERE $filter";
     }
-    public  function  deleteRowUsingFilter(string  $table, string  $filter)
+    public  function  deleteRowUsingFilter(string  $table, string  $filter): string
     {
-        return $this->db->connection->query("DELETE FROM $table WHERE $filter");
+        return "DELETE FROM $table WHERE $filter";
     }
 
 }

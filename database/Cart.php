@@ -27,7 +27,7 @@ class Cart
     public  function getCartItems(): array
     {
         $result=[];
-        foreach ($this->dbGrammar->getData("cart") as $item){
+        foreach ($this->getCart() as $item){
             $result[]=  $this->getProductById($item['item_id']);
         }
         return $result;
@@ -44,13 +44,13 @@ class Cart
         }
         return $sum;
     }
-    public  function  getNumberOfItemsInCart(): int
+    public  function  cartLength(): int
     {
         return count($this->getCart());
     }
     public  function deleteItemFromCart($item_id)
     {
-        $result= $this->dbGrammar->deleteRowUsingFilter("cart","item_id = $item_id");
+        $result= $this->db->connection->query($this->dbGrammar->deleteRowUsingFilter("cart","item_id = $item_id"));
         if(isset($result))
         {
             header("Location:".$_SERVER['PHP_SELF']);
@@ -68,8 +68,13 @@ class Cart
     }
     public  function  getProductById(string $item_id): array
     {
-    return $this->dbGrammar
-        ->getFilteredData('product',"item_id = $item_id")[0];
+        $result = $this->db->connection->query($this->dbGrammar->getFilteredData('product',"item_id = $item_id"));
+        $resultArray=[];
+        while ($item= mysqli_fetch_array($result))
+        {
+            $resultArray[]=$item;
+        }
+        return $resultArray[0];
     }
 
 

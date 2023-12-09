@@ -5,6 +5,11 @@ if($_SERVER['REQUEST_METHOD']=="POST")
     {
     $deletedProduct=$cart->deleteItemFromCart($_POST['item_id']);
     }
+    elseif(isset($_POST['add_to_wishlist_submit']))
+    {
+       $wishlist->addProductToWishList($_POST['user_id'],$_POST['item_id']);
+//        $deletedProduct=$cart->deleteItemFromCart($_POST['item_id']);
+    }
 }
 ?>
 <!---Start Main Section-->
@@ -55,8 +60,26 @@ if($_SERVER['REQUEST_METHOD']=="POST")
                                                 Delete
                                             </button>
                                         </form>
-                                        <button type="submit" class="btn font-baloo font-size-14 text-danger">Save
-                                            for Later</button>
+                                        <form method="post">
+                                            <input type="hidden" name="item_id" value="<?php echo $item['item_id']; ?>">
+                                            <input type="hidden" name="user_id" value="<?php echo 1;?>">
+                                            <?php
+                                            if(in_array($item['item_id'],$wishlist->getWishlistId()))
+                                            {
+                                                echo '<button type="submit" disabled name="add_to_wishlist_submit" class="btn font-baloo font-size-14 text-danger">
+                                                                Already in wishlist
+                                                                </button>';
+                                            }else
+                                            {
+                                                echo '<button type="submit" name="add_to_wishlist_submit" class="btn font-baloo font-size-14 text-danger">
+                                                                Save for Later
+                                                                </button>';
+                                            }
+
+                                            ?>
+
+                                        </form>
+
                                     </div>
                                 </div>
                                 <!---close item quantity-->
@@ -83,8 +106,8 @@ if($_SERVER['REQUEST_METHOD']=="POST")
                         </h6>
                         <div class="border-top py-4">
                             <h5 class="font-baloo font-size-20">
-                                Subtotal ( <?php echo $cart->getNumberOfItemsInCart(); ?> ) <span class="text-danger">$</span><span id="deal-price"
-                                                                                             class="text-danger"><?php echo $cart->getSubtotal(); ?> </span>
+                                Subtotal ( <?php echo $cart->cartLength(); ?> ) <span class="text-danger">$</span><span id="deal-price"
+                                                                                                                        class="text-danger"><?php echo $cart->getSubtotal(); ?> </span>
                             </h5>
                             <button type="submit" class="btn btn-warning mt-3">Proceed to Buy</button>
                         </div>
