@@ -1,24 +1,12 @@
 <?php
 
-namespace database;
-use database\DBController;
+namespace database\Grammar;
 class DBGrammar
 {
-    public DBController $db;
-    public function __construct(DBController $db)
-    {
 
-        $this->db=$db;
-    }
-    public function getData($table): array
+    public function getData($table): string
     {
-        $result= $this->db->connection->query("SELECT * FROM $table");
-        $resultArray=[];
-        while ($item= mysqli_fetch_array($result))
-        {
-            $resultArray[]=$item;
-        }
-        return $resultArray;
+        return "SELECT * FROM $table";
     }
     public function insertIntoTable($params,$table): string
     {

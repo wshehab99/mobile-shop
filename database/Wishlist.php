@@ -2,6 +2,8 @@
 
 namespace database;
 
+use database\Grammar\DBGrammar;
+
 class Wishlist
 {
     public DBController $db;
@@ -45,7 +47,13 @@ class Wishlist
     }
     public function  getWishlist(): array
     {
-        return $this->dbGrammar->getData("wishlist") ;
+        $result= $this->db->connection->query($this->dbGrammar->getData('wishlist'));
+        $resultArray=[];
+        while ($item= mysqli_fetch_array($result))
+        {
+            $resultArray[]=$item;
+        }
+        return $resultArray;
     }
     public  function  getProductById(string $item_id): array
     {

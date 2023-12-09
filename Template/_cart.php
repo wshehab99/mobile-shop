@@ -8,7 +8,7 @@ if($_SERVER['REQUEST_METHOD']=="POST")
     elseif(isset($_POST['add_to_wishlist_submit']))
     {
        $wishlist->addProductToWishList($_POST['user_id'],$_POST['item_id']);
-//        $deletedProduct=$cart->deleteItemFromCart($_POST['item_id']);
+        $deletedProduct=$cart->deleteItemFromCart($_POST['item_id']);
     }
 }
 ?>

@@ -4,13 +4,15 @@ require ('../database/DBController.php');
 
 // require Product Class
 require ('../database/Product.php');
-use database\DBController;
+
 use database\Cart;
-use database\DBGrammar;
+use database\DBController;
+use database\Grammar\DBGrammar;
+
 // DBController object
 $db = new DBController();
 
-$dbGrammar=new DBGrammar($db);
+$dbGrammar=new DBGrammar();
 $product= new Cart($db, $dbGrammar);
 
 if (isset($_POST['itemid'])){
